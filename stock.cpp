@@ -1,6 +1,8 @@
 #include "stock.h"
 //CONSTRUCTEUR PAR DEFAUT
-stock::stock(){}
+stock::stock(){
+    this->qnt=0;
+}
 //METHODES DE RECHERCHE D'ARTICLES
 //Recherche par nom
 article stock::rechnom_art(string nomch){
@@ -33,6 +35,7 @@ stock stock::rechpri_art(double p1, double p2){
     while(i<this->qnt){
         double prif=this->arr[i].getPrixv();
         if( prif>=min(p1,p2) && prif<=max(p1,p2) ) intervalle.ajout_article(this->arr[i]);
+        i++;
     }
     return intervalle;
 }
