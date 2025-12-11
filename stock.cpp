@@ -63,3 +63,9 @@ void stock::modif_article(int refch, int ref2, double pri2, int qnt2, string nom
     nbadlouh.setPriv(pri2);
     nbadlouh.setQnt(qnt2);
 }
+//STOCKER LES ARTICLES DANS UN FICHIER TXT
+void stock::stock_stock(string ismFichier){
+    f.open("D:\\" + ismFichier, ios::out);
+    for(int i=0; i<this->qnt; i++) f << this->arr[i].toString() << '\n';
+    f.close();
+}
