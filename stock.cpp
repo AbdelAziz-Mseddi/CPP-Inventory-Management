@@ -36,11 +36,14 @@ stock stock::rechpri_art(double p1, double p2){
     }
     return intervalle;
 }
+
 //AJOUTER ARTICLE
 void stock::ajout_article(article aj){
     this->arr.push_back(aj);
     this->qnt++;
+    this->arr[0].setQnt(this->arr[0].getQnt()+1);
 }
+
 //SUPPRIMER ARTICLE
 void stock::supp_article(int sp){
     bool found=false;
@@ -52,6 +55,7 @@ void stock::supp_article(int sp){
             found=true;
             this->arr.erase(this->arr.begin() + i);
             this->qnt--;
+            if(this->arr[0].getQnt()>1) this->arr[0].setQnt(this->arr[0].getQnt()-1);
         }
     }
 }
