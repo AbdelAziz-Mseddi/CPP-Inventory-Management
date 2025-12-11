@@ -13,7 +13,6 @@ class article {
     article();
     article(int numRef, double priv);
     article(int numRef, double priv, int quant);
-    ~article();
     string getNom();
     int getRef();
     double getPrixv();
