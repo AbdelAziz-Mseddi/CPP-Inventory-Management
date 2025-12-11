@@ -53,5 +53,6 @@ void article::setNom(string s){
 }
 //Surcharge de la méthode toString pour afficher article
 string article::toString(){
-    cout << "L'article à référence <" << num_ref<<">\nø Son prix= "<<prixV<<"TND\nø Sa quantité en stock= "<<qnt<< endl;
+    string s = "L'article à référence <" + to_string(num_ref) + ">\nø Son prix= " + to_string(prixV) + "TND\nø Sa quantité en stock= " + to_string(qnt) + "\n";
+    return s;
 }
