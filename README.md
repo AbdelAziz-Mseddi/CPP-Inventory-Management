@@ -63,7 +63,7 @@ Manages a collection of articles.
 
 Compile the project with:
 ```bash
-g++ *.cpp -o main
+g++ *.cpp *.h -o main
 ```
 
 ## Usage
