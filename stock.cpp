@@ -63,8 +63,28 @@ void stock::modif_article(int refch, int ref2, double pri2, int qnt2, string nom
     nbadlouh.setPriv(pri2);
     nbadlouh.setQnt(qnt2);
 }
+//AFFICHER TOUS LES ARTICLES
+void stock::afficher(){
+    if(this->qnt == 0){
+        cout << "Le stock est vide!" << endl;
+        return;
+    }
+    cout << "øøøø- STOCK -øøøø" << endl;
+    for(int i=0; i<this->qnt; i++){
+        cout << "Article " << (i+1) << ":" << endl;
+        cout << "  Reference: " << this->arr[i].getRef() << endl;
+        cout << "  Nom: " << this->arr[i].getNom() << endl;
+        cout << "  Prix: " << this->arr[i].getPrixv() << " TND" << endl;
+        cout << "  Quantite: " << this->arr[i].getQnt() << endl;
+        cout << "øøøøøøøøø" << endl;
+    }
+}
 //STOCKER LES ARTICLES DANS UN FICHIER TXT
 void stock::stock_stock(string ismFichier){
+    if(this->qnt == 0){
+        cout << "Le stock est vide!" << endl;
+        return;
+    }
     f.open("D:\\" + ismFichier, ios::out);
     for(int i=0; i<this->qnt; i++) f << this->arr[i].toString() << '\n';
     f.close();
