@@ -4,64 +4,161 @@ using namespace std;
 
 int main(){
     ios::sync_with_stdio(false);
-    
-    // Create a stock instance
     stock myStock;
+    int choix = 0;
     
-    // Create and add articles
-    cout << "=== Adding Articles ===" << endl;
+    cout << "ø GESTION DE STOCK - MENU PRINCIPAL ø" << endl;
+
     
-    article art1(101, 25.50, 100);
-    art1.setNom("Laptop");
-    myStock.ajout_article(art1);
-    cout << "Added: Laptop (Ref: 101, Price: 25.50, Qty: 100)" << endl;
-    
-    article art2(102, 15.75, 50);
-    art2.setNom("Mouse");
-    myStock.ajout_article(art2);
-    cout << "Added: Mouse (Ref: 102, Price: 15.75, Qty: 50)" << endl;
-    
-    article art3(103, 45.00, 30);
-    art3.setNom("Keyboard");
-    myStock.ajout_article(art3);
-    cout << "Added: Keyboard (Ref: 103, Price: 45.00, Qty: 30)" << endl;
-    
-    article art4(104, 12.99, 200);
-    art4.setNom("USB Cable");
-    myStock.ajout_article(art4);
-    cout << "Added: USB Cable (Ref: 104, Price: 12.99, Qty: 200)" << endl;
-    
-    // Display all articles
-    cout << "\n=== All Articles ===" << endl;
-    myStock.afficher();
-    
-    // Save to file
-    cout << "\n=== Saving to stock.txt ===" << endl;
-    myStock.stock_stock("stock.txt");
-    cout << "Articles saved to stock.txt" << endl;
-    
-    // Test search by reference
-    cout << "\n=== Search by Reference (103) ===" << endl;
-    article found = myStock.rechref_art(103);
-    
-    // Test search by name
-    cout << "\n=== Search by Name (Mouse) ===" << endl;
-    article foundByName = myStock.rechnom_art("Mouse");
-    
-    // Test search by price range
-    cout << "\n=== Articles with price between 15 and 50 ===" << endl;
-    stock priceRange = myStock.rechpri_art(15, 50);
-    priceRange.afficher();
-    
-    // Delete an article
-    cout << "\n=== Deleting article with Ref: 102 ===" << endl;
-    myStock.supp_article(102);
-    myStock.afficher();
-    
-    // Save again
-    cout << "\n=== Saving updated stock to stock.txt ===" << endl;
-    myStock.stock_stock("stock.txt");
-    cout << "Updated stock saved!" << endl;
+    while(choix != 9){
+        cout << " 1. Rechercher un article par reference  " << endl;
+        cout << " 2. Ajouter un article au stock          " << endl;
+        cout << " 3. Afficher tous les articles           " << endl;
+        cout << " 4. Supprimer un article                 " << endl;
+        cout << " 5. Modifier un article                  " << endl;
+        cout << " 6. Rechercher un article par nom        " << endl;
+        cout << " 7. Rechercher par intervalle de prix    " << endl;
+        cout << " 8. Stocker tous les articles en fichier " << endl;
+        cout << " 9. Quitter                              " << endl;
+
+        cout << "Entrez votre choix: ";
+        cin >> choix;
+        cin.ignore();
+        
+        if(choix == 1){
+            int ref;
+            cout << "\nEntrez la reference de l'article: ";
+            cin >> ref;
+            cin.ignore();
+            
+            article art = myStock.rechref_art(ref);
+            if(art.getRef() == 0){
+                cout << "Article non trouve!" << endl;
+            } else {
+                cout << art.toString();
+            }
+        }
+        
+        else if(choix == 2){
+            int ref, qnt;
+            double prix;
+            string nom;
+            
+            cout << "\nEntrez la reference: ";
+            cin >> ref;
+            cin.ignore();
+            
+            article existing = myStock.rechref_art(ref);
+            if(existing.getRef() == ref){
+                cout << "Erreur: Cette reference existe deja!" << endl;
+                continue;
+            }
+            
+            cout << "Entrez le nom: ";
+            getline(cin, nom);
+            
+            cout << "Entrez le prix: ";
+            cin >> prix;
+            
+            cout << "Entrez la quantite: ";
+            cin >> qnt;
+            cin.ignore();
+            
+            article newArt(ref, prix, qnt);
+            newArt.setNom(nom);
+            myStock.ajout_article(newArt);
+            
+            cout << "Article ajoute avec succes!" << endl;
+        }
+        
+        else if(choix == 3){
+            cout << endl;
+            myStock.afficher();
+        }
+        
+        else if(choix == 4){
+            int ref;
+            cout << "\nEntrez la reference de l'article à supprimer: ";
+            cin >> ref;
+            cin.ignore();
+            
+            myStock.supp_article(ref);
+            cout << "Article supprime!" << endl;
+        }
+        
+        else if(choix == 5){
+            int ref, newRef, qnt;
+            double prix;
+            string nom;
+            
+            cout << "\nEntrez la reference de l'article à modifier: ";
+            cin >> ref;
+            cin.ignore();
+            
+            article existing = myStock.rechref_art(ref);
+            if(existing.getRef() != ref){
+                cout << "Article non trouve!" << endl;
+                continue;
+            }
+            
+            cout << "Entrez la nouvelle reference: ";
+            cin >> newRef;
+            cin.ignore();
+            
+            cout << "Entrez le nouveau nom: ";
+            getline(cin, nom);
+            
+            cout << "Entrez le nouveau prix: ";
+            cin >> prix;
+            
+            cout << "Entrez la nouvelle quantite: ";
+            cin >> qnt;
+            cin.ignore();
+            
+            myStock.modif_article(ref, newRef, prix, qnt, nom);
+            cout << "Article modifie avec succes!" << endl;
+        }
+        
+        else if(choix == 6){
+            string nom;
+            cout << "\nEntrez le nom à rechercher: ";
+            getline(cin, nom);
+            
+            article art = myStock.rechnom_art(nom);
+            if(art.getRef() == 0){
+                cout << "Article non trouve!" << endl;
+            } else {
+                cout << art.toString();
+            }
+        }
+        
+        else if(choix == 7){
+            double p1, p2;
+            cout << "\nEntrez le prix minimum: ";
+            cin >> p1;
+            cout << "Entrez le prix maximum: ";
+            cin >> p2;
+            cin.ignore();
+            
+            cout << "\nArticles dans cet intervalle de prix:" << endl;
+            stock result = myStock.rechpri_art(p1, p2);
+            result.afficher();
+        }
+        
+        else if(choix == 8){
+            cout << "\nStockage des articles en cours..." << endl;
+            myStock.stock_stock("stock.txt");
+            cout << "Articles stockes dans D:\\" << endl;
+        }
+        
+        else if(choix == 9){
+            cout << "\nAuf Wiederesehen" << endl;
+        }
+        
+        else {
+            cout << "\nChoix invalide! Veuillez reessayer." << endl;
+        }
+    }
     
     return 0;
 }

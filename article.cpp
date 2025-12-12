@@ -51,8 +51,8 @@ void article::setQnt(int q){
 void article::setNom(string s){
     this->nom=s;
 }
-//Surcharge de la méthode toString pour afficher article
+//Méthode toString pour afficher article
 string article::toString(){
-    string s = "L'article à référence <" + to_string(num_ref) + ">\nø Son prix= " + to_string(prixV) + "TND\nø Sa quantité en stock= " + to_string(qnt) + "\n";
+    string s = "L'article a reference <" + to_string(num_ref) + "\nø Son nom: " + this->getNom()+">\nø Son prix= " + to_string(prixV) + "TND\nø Sa quantite en stock= " + to_string(qnt) + "\n";
     return s;
 }

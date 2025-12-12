@@ -78,12 +78,7 @@ void stock::afficher(){
     }
     cout << "øøøø- STOCK -øøøø" << endl;
     for(int i=0; i<this->qnt; i++){
-        cout << "Article " << (i+1) << ":" << endl;
-        cout << "  Reference: " << this->arr[i].getRef() << endl;
-        cout << "  Nom: " << this->arr[i].getNom() << endl;
-        cout << "  Prix: " << this->arr[i].getPrixv() << " TND" << endl;
-        cout << "  Quantite: " << this->arr[i].getQnt() << endl;
-        cout << "øøøøøøøøø" << endl;
+        cout << this->arr[i].toString() << '\n';
     }
 }
 //STOCKER LES ARTICLES DANS UN FICHIER TXT
